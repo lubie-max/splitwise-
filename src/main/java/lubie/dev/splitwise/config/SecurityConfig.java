@@ -27,8 +27,9 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable() // Disable CSRF for simplicity (use cautiously in production)
                 .authorizeHttpRequests(req -> req
-                        .requestMatchers("/health").permitAll() // Open to everyone
-                        .requestMatchers("/new/**").permitAll() // Open registration
+
+                        .requestMatchers("/login", "/register","/health")
+                        .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN") // Restricted to ADMIN role
                         .anyRequest().authenticated() // Authenticate all other requests
                 )
